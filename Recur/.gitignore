@@ -1,0 +1,11 @@
+# Recur Framework .gitignore
+__pycache__/
+build/
+dist/
+node_modules/
+.env
+*.log
+*.pyc
+*.pyo
+*.sqlite3
+.DS_Store
