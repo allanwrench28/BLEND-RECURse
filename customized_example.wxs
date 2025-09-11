@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="MARTY App" Language="1033" Version="1.0.0.0" Manufacturer="YourCompany" UpgradeCode="PUT-GUID-HERE">
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
+
+    <!-- Add a custom dialog -->
+    <UI>
+      <UIRef Id="WixUI_InstallDir" />
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    </UI>
+
+    <Feature Id="MainFeature" Title="MARTY App" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="MARTY App" />
+      </Directory>
+      <Directory Id="DesktopFolder" />
+    </Directory>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="MainExecutable" Guid="PUT-GUID-HERE">
+        <File Source="path\to\your\app.exe" />
+      </Component>
+      <Component Id="DesktopShortcut" Guid="PUT-GUID-HERE">
+        <Shortcut Id="DesktopShortcut" Directory="DesktopFolder" Name="MARTY App" Target="[INSTALLFOLDER]app.exe" WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="DesktopFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\MARTYApp" Name="Installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
